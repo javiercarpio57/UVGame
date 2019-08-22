@@ -26,13 +26,19 @@ public class player_behaviour : MonoBehaviour
 
     void Update()
     {
-        if (!characterController.isGrounded)
+        if (characterController.isGrounded)
         {
             // We are grounded, so recalculate
             // move direction directly from axes
 
             moveDirection = new Vector3(SimpleInput.GetAxis(horizontalAxis), 0.0f, SimpleInput.GetAxis(verticalAxis));
             moveDirection *= speed;
+
+            if (moveDirection.magnitude > 0)
+            {
+                transform.rotation = Quaternion.LookRotation(moveDirection);
+
+            }
 
             if (Input.GetButton("Jump"))
             {
